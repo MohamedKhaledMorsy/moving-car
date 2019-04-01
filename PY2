@@ -1,0 +1,300 @@
+from OpenGL.GL import *
+from OpenGL.GLU import *
+from OpenGL.GLUT import *
+angle=0
+x=-12
+y=0
+z=0
+forward = True
+
+def rotate():
+    glRotate(129,-0.2,1,-0.1)
+
+
+def draw_sky():
+    glColor3f(0,0.4,0.8)
+    glBegin(GL_POLYGON)
+    glVertex(0,15,20)
+    glVertex(0,3,20)
+    glVertex(0,2.8,-20)
+    glVertex(0,15,-20)
+    glEnd()
+
+    ######## clouds
+    glColor3f(1,1,1)
+    glLoadIdentity()
+    glTranslate(0.125*x+2.3,7.5,0.5)
+    glutSolidSphere(0.7,100,100)
+
+    glLoadIdentity()
+    glTranslate(0.125*x+3,7.5,0.5)
+    glutSolidSphere(0.4,100,100)
+
+    glLoadIdentity()
+    glTranslate(0.125*x+1.6,7.3,0.5)
+    glutSolidSphere(0.35,100,100)
+
+    glLoadIdentity()
+    glTranslate(0.125*x-2.3,7.5,0.5)
+    glutSolidSphere(0.55,100,100)
+
+    glLoadIdentity()
+    glTranslate(0.125*x-3,7.4,0.5)
+    glutSolidSphere(0.3,100,100)
+
+    glLoadIdentity()
+    glTranslate(0.125*x-1.6,7.65,0.5)
+    glutSolidSphere(0.3,100,100)
+
+def draw_road():
+    glColor3f(0,0,0)
+    rotate()
+    glBegin(GL_POLYGON)
+    glVertex(0,4,2.8)
+    glVertex(0,-20,7)
+    glVertex(0,-20,-15)
+    glVertex(0,4,-2.2)
+    glEnd()
+
+    ######### lanes
+    glColor3f(1,1,1)
+    glLoadIdentity()
+    rotate()
+    glBegin(GL_POLYGON)
+    glVertex(0-x,-1,-1.5)
+    glVertex(0-x,-1,-2.5)
+    glVertex(6-x,-1,-2.5)
+    glVertex(6-x,-1,-1.5)
+    glEnd()
+
+    glLoadIdentity()
+    rotate()
+    glBegin(GL_POLYGON)
+    glVertex(11-x,-1,-1.5)
+    glVertex(11-x,-1,-2.5)
+    glVertex(17-x,-1,-2.5)
+    glVertex(17-x,-1,-1.5)
+    glEnd()
+
+    glLoadIdentity()
+    rotate()
+    glBegin(GL_POLYGON)
+    glVertex(-11-x,-1,-1.5)
+    glVertex(-11-x,-1,-2.5)
+    glVertex(-5-x,-1,-2.5)
+    glVertex(-5-x,-1,-1.5)
+    glEnd()
+
+    glLoadIdentity()
+    rotate()
+    glBegin(GL_POLYGON)
+    glVertex(-16-x,-1,-1.5)
+    glVertex(-16-x,-1,-2.5)
+    glVertex(-22-x,-1,-2.5)
+    glVertex(-22-x,-1,-1.5)
+    glEnd()
+
+    glLoadIdentity()
+    rotate()
+    glBegin(GL_POLYGON)
+    glVertex(-28-x,-1,-1.5)
+    glVertex(-28-x,-1,-2.5)
+    glVertex(-34-x,-1,-2.5)
+    glVertex(-34-x,-1,-1.5)
+    glEnd()
+
+    glLoadIdentity()
+    rotate()
+    glBegin(GL_POLYGON)
+    glVertex(0-x,-1,1)
+    glVertex(0-x,-1,0)
+    glVertex(6-x,-1,0)
+    glVertex(6-x,-1,1)
+    glEnd()
+
+    glLoadIdentity()
+    rotate()
+    glBegin(GL_POLYGON)
+    glVertex(11-x,-1,1)
+    glVertex(11-x,-1,0)
+    glVertex(16-x,-1,0)
+    glVertex(16-x,-1,1)
+    glEnd()
+
+    glLoadIdentity()
+    rotate()
+    glBegin(GL_POLYGON)
+    glVertex(-11-x,-1,1)
+    glVertex(-11-x,-1,0)
+    glVertex(-5-x,-1,0)
+    glVertex(-5-x,-1,1)
+    glEnd()
+
+    glLoadIdentity()
+    rotate()
+    glBegin(GL_POLYGON)
+    glVertex(-16-x,-1,1)
+    glVertex(-16-x,-1,0)
+    glVertex(-22-x,-1,0)
+    glVertex(-22-x,-1,1)
+    glEnd()
+
+def myInit():
+    glMatrixMode(GL_PROJECTION)
+    glLoadIdentity()
+    gluPerspective(60,1,1,30)
+    gluLookAt(11,12,13,
+              0,-1,0,
+              0,1,0)
+    glClearColor(0,0.5,0.2,1)
+
+def draw():
+    global  x
+    global  y
+    global  z
+    global angle
+    global forward
+    glMatrixMode(GL_MODELVIEW)
+    glLoadIdentity()
+    glClear(GL_COLOR_BUFFER_BIT)
+    draw_road()
+    draw_sky()
+
+    ######## obstacles
+
+    glColor3f(0.2, 0.2, 0.2)
+    glLoadIdentity()
+    rotate()
+    glTranslate(50 - 0.5 * y, 0, -5)
+    glScale(0.1, 0.5, 0.8)
+    glutSolidCube(5)
+
+    glColor3f(0.2, 0.2, 0.2)
+    glLoadIdentity()
+    rotate()
+    glTranslate(50 - 0.5 * y, 0, 5)
+    glScale(0.1, 0.5, 0.8)
+    glutSolidCube(5)
+
+    glColor3f(0.1, 0.1, 0.1)
+    glLoadIdentity()
+    rotate()
+    glTranslate(30 - 0.5 * y, 0, -0.5)
+    glScale(0.1, 0.5, 0.8)
+    glutSolidCube(5)
+
+    glColor3f(0.9,0,0)
+    glLoadIdentity()
+    rotate()
+    glTranslate(3-0.5*y,0,-2.5)
+    glutSolidSphere(1,100,100)
+
+    glColor3f(0.5,0.9,0.2)
+    glLoadIdentity()
+    rotate()
+    glTranslate(15-0.5*y,0,2)
+    glutSolidSphere(1,100,100)
+
+######## car
+    glColor3f(0.4,0.4,0.4)
+    glLoadIdentity()
+    rotate()
+    glTranslate(x-0.25*5,-0.125*5,-0.25*5+z)
+    glRotate( angle ,0,0,1)
+    glutSolidTorus(0.15,0.5,20,10)
+
+    glColor3f(0.4,0.4,0.4)
+    glLoadIdentity()
+    rotate()
+    glTranslate(x-0.25*5,-0.125*5,0.25*5+z)
+    glRotate( angle ,0,0,1)
+    glutSolidTorus(0.15,0.5,20,10)
+
+    glColor3f(0.4,0.4,0.4)
+    glLoadIdentity()
+    rotate()
+    glTranslate(x+0.25*5,-0.125*5,0.25*5+z)
+    glRotate( angle ,0,0,1)
+    glutSolidTorus(0.15,0.5,20,10)
+
+    glColor3f(0.4,0.4,0.4)
+    glLoadIdentity()
+    rotate()
+    glTranslate(x+0.25*5,-0.125*5,-0.25*5+z)
+    glRotate( angle ,0,0,1)
+    glutSolidTorus(0.15,0.5,20,10)
+
+    glColor3f(0,0,0.4)
+    glLoadIdentity()
+    rotate()
+    glTranslate(x,0,z)
+    glScale(1,0.25,0.5)
+    glutSolidCube(5)
+
+    glColor3f(0,0,0.4)
+    glLoadIdentity()
+    rotate()
+    glTranslate(x+0,4*0.25,0+z)
+    glScale(0.5,0.25,0.5)
+    glutSolidCube(5)
+
+    glColor3f(0.5,0.5,0.5)
+    glLoadIdentity()
+    rotate()
+    glBegin(GL_POLYGON)
+    glVertex(x-1.28,0.6,1.1+z)
+    glVertex(x-1.28,0.6,-1.1+z)
+    glVertex(x-1.28,1.35,-1.1+z)
+    glVertex(x-1.28,1.35,1.1+z)
+    glEnd()
+
+    glColor3f(0.9,0.9,0)
+    glLoadIdentity()
+    rotate()
+    glTranslate(x-2.4,0,-0.65+z)
+    glutSolidSphere(0.2,100,100)
+
+    glColor3f(0.9,0.9,0)
+    glLoadIdentity()
+    rotate()
+    glTranslate(x-2.4,0,0.65+z)
+    glutSolidSphere(0.2,100,100)
+
+    glutSwapBuffers()
+
+
+
+
+    if forward :
+        angle -= 0.5
+        x += 0.005
+        y += 0.025
+        if x> 10:
+            forward = False
+            y = 0
+
+    else:
+        angle += 0.5
+        x -= 0.005
+        y += 0.02
+        if x < -10:
+            forward =True
+            y = 0
+
+
+def arrowHandler(key,x,y):
+    global  z
+    if key ==GLUT_KEY_RIGHT:
+        z+=0.2
+    elif key==GLUT_KEY_LEFT:
+        z-=0.2
+
+glutInit()
+glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB)
+glutInitWindowSize(600,600)
+glutCreateWindow(b"moving car")
+myInit()
+glutDisplayFunc(draw)
+glutIdleFunc(draw)
+glutSpecialFunc(arrowHandler)
+glutMainLoop()
